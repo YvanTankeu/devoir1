@@ -43,12 +43,12 @@ void lireValider2Char(char pChar)
   majChar = toupper(pChar); //conversion en majusucule
 
   // controle de charatère
-  while (majChar != 'R' && majChar != 'T')
+  do 
   {
     cout << "Votre entree est incorrecte."
          << "S.V.P. reessayez : ";
     cin >> majChar;
-  }
+  }while (majChar != 'R' && majChar != 'T');
 }
 
 // Déclation et définition de la fonction  LireValiderEntierEntre  à fin de valider les données sur la durée du séjour
