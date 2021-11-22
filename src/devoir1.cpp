@@ -33,18 +33,23 @@ int main()
       cin >> nomCleint;
       cout << "\n\nEntrer la durée du sejour (un nombre entier entre 1 et 14) : ";
       cin >> dureeSejour;
+      lireValiderEntierEntre(dureeSejour);
 
       // Traitement et validation des données concernant les séjours
       cout << "\nEntrer le type de sejour (R - régulier ou T - tout inclus) : ";
       cin >> typeSejour;
-      LireValiderEntierEntre(typeSejour);
+      lireValider2Char(typeSejour);// appel de fonction pour la validation du caractère
       
+
       cout << "\n\nEntrer le nombre d'enfant(s) (un nombre entier entre 0 et 12) : ";
       cin >> nbrEnfant;
+      validerNbEnfant(nbrEnfant); // appel de fonction pour la validation du nombre d'enfant
+
       for (int i = 0; i < nbrEnfant + 1; i++)
       {
         cout << "\n\nEntrer l'age (moins de 12) de l'enfant #" << i ;
         cin >> ageEnfant;
+        validerAgeEnfant(ageEnfant); // appel de fonction pour la validation de l'ahe des enfants
       }
       
     }
