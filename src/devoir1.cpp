@@ -33,9 +33,11 @@ int dureeSejour(0);
 int nbrEnfant(0);
 int ageEnfant(0);
 
+float tarif(0);
+
 string nomClient("");
 
-char typeSejour;
+char typeSejour, typeSejourConvertir;
 
 int main()
 {
@@ -53,14 +55,17 @@ int main()
       cout << "\n=== ENTRER DES INFORMATIONS ===\n\n";
       cout << "\nEntrer le nom du client : ";
       cin >> nomClient;
+
       cout << "\nEntrer la durée du sejour (un nombre entier "
            << "entre 1 et 14) : ";
       cin >> dureeSejour;
       lireValiderEntierEntre(dureeSejour);
+
       // Traitement et validation des données concernant les séjours
       cout << "Entrer le type de sejour (R - régulier ou T - tout"
            << " inclus) : ";
       cin >> typeSejour;
+      typeSejourConvertir = toupper(typeSejour);
 
       // Appel de fonction pour la validation du caractère
       lireValider2Char(typeSejour);
@@ -77,6 +82,37 @@ int main()
 
         // Appel de fonction pour la validation de l'ahe des enfants
         validerAgeEnfant(ageEnfant);
+      }
+
+      // Traitement du sejour s'il est régulier ou non
+      if (typeSejour == 'R')
+      {
+        if (dureeSejour <= 3)
+        {
+          tarif = TARIF_REGULIER_3_JOUR * dureeSejour;
+        }
+        else if (dureeSejour <= 7)
+        {
+          tarif = TARIF_REGULIER_9_JOUR * dureeSejour;
+        }
+        else
+        {
+          tarif = TARIF_REGULIER_15_JOUR * dureeSejour;
+        }
+      }else
+      {
+        if (dureeSejour <= 3)
+        {
+          tarif = TARIF_INCLUS_3_JOUR * dureeSejour;
+        }
+        else if (dureeSejour <= 7)
+        {
+          tarif = TARIF_INCLUS_9_JOUR * dureeSejour;
+        }
+        else
+        {
+          tarif = TARIF_INCLUS_15_JOUR * dureeSejour;
+        }
       }
 
     case 2:

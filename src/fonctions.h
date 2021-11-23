@@ -39,16 +39,16 @@ bool LireValiderEntierEntre(char pChar)
 // Déclation et définition de la fonction  LireValiderEntierEntre ) à fin de valider le caratère
 void lireValider2Char(char pChar)
 {
-  char majChar;             // déclation de la variable pour stocker les majuscules venant du paramètre pChar
-  majChar = toupper(pChar); //conversion en majusucule
+  /*char majChar;             // déclation de la variable pour stocker les majuscules venant du paramètre pChar
+  majChar = toupper(pChar); //conversion en majusucule*/
 
   // controle de charatère
   do 
   {
     cout << "Votre entree est incorrecte."
          << "S.V.P. reessayez : ";
-    cin >> majChar;
-  }while (majChar != 'R' && majChar != 'T');
+    cin >> pChar;
+  }while (pChar != 'R' && pChar != 'T');
 }
 
 // Déclation et définition de la fonction  LireValiderEntierEntre  à fin de valider les données sur la durée du séjour
@@ -101,5 +101,19 @@ void validerAgeEnfant(int pAgeEnfant)
       cout << "Votre entree est incorrecte."
            << "S.V.P. reessayez : ";
     } while (!(cin >> pAgeEnfant));
+  }
+}
+
+// renvoie le rabais pour les enfants
+float retourRabaisEnfant(int pAgeEnfant)
+{
+  if (pAgeEnfant <= 5){
+    return 0.04;
+  }else if(pAgeEnfant <= 8 )
+  {
+    return 0.03;
+  }else
+  {
+    return 0.02;
   }
 }
