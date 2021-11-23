@@ -21,20 +21,18 @@ void menu()
        << "\n\nEntrez votre choix (1,2,3 ou 4) : ";
 }
 
-/*// Déclation et définition de la fonction  LireValiderEntierEntre ) à fin de valider le caratère
-bool LireValiderEntierEntre(char pChar)
+// Déclation et définition de la fonction  voidValiderUneEntre qui controle les types 
+//de données et valides uniquement ceux qui sont correctes  
+void voidValiderUneEntre(int pEntre)
 {
-  char majChar; // déclation de la variable pour stocker les majuscules venant du paramètre pChar
-  majChar = toupper(pChar);
-  if (pChar == 'R' && pChar == 'T')
+  do
   {
-    return 1;
-  }
-  else
-  {
-    return 0;
-  }
-}*/
+    cin.clear();
+    cin.ignore(100, '\n');
+    cout << "Votre entrée est incorrecte."
+         << "\nS.V.P. reessayez : ";
+  } while (!(cin >> pEntre));
+}
 
 // Déclation et définition de la fonction  LireValiderEntierEntre ) à fin de valider le caratère
 void lireValider2Char(char pChar)
@@ -43,110 +41,85 @@ void lireValider2Char(char pChar)
   majChar = toupper(pChar); //conversion en majusucule*/
 
   // controle de charatère
-  do 
+  while (pChar != 'R' && pChar != 'T')
   {
-    cout << "Votre entree est incorrecte."
+    cout << "Votre entrée est incorrecte."
          << "S.V.P. reessayez : ";
     cin >> pChar;
-  }while (pChar != 'R' && pChar != 'T');
+  } 
 }
 
-// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de valider les données sur la durée du séjour
-void lireValiderEntierEntre(int pDureeSejour)
-{
-  // aussi longtemps que l'ulilisateur entrera un entier non compris entre 1 et 14 on en validera pas
-  while (pDureeSejour < 1 || pDureeSejour > 14)
+// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de 
+//valider les données sur la durée du séjour
+void lireValiderEntierEntre(int pBorn1, int pBorne2, int pNbrAController)
   {
-    /*
-      efface le flux, appelle une fonction d'ignorance. Cette fonction efface un nombre 
-      déterminé de caractères, jusqu'à un caractère de nouvelle ligne. Ensuite, elle demande 
-      une meilleure entrée
-    */
-    do
+    while (pNbrAController < pBorn1 || pNbrAController > pBorne2)
     {
-      cin.clear();
-      cin.ignore(100, '\n');
-      cout << "Votre entree est incorrecte."
-           << "\nS.V.P. reessayez : ";
-    } while (!(cin >> pDureeSejour));
-  }
-}
-
-// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de valider le nombre d'enfant
-void validerNbEnfant(int pNbEnfant)
-{
-  // aussi longtemps que l'ulilisateur entrera un entier non compris entre 0 et 12 ans inclusivement on en validera pas
-  while (pNbEnfant < 0 || pNbEnfant > 12)
-  {
-    do
-    {
-      cin.clear();
-      cin.ignore(100, '\n');
-      cout << "Votre entree est incorrecte."
-           << "S.V.P. reessayez : ";
-    } while (!(cin >> pNbEnfant));
-  }
-}
-
-// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de valider l'age des enfants
-void validerAgeEnfant(int pAgeEnfant)
-{
-  // aussi longtemps que l'ulilisateur entrera un entier non compris entre 0 et 12 ans inclusivement on en validera pas
-  while (pAgeEnfant < 0 || pAgeEnfant > 12)
-  {
-    do
-    {
-      cin.clear();
-      cin.ignore(100, '\n');
-      cout << "Votre entree est incorrecte."
-           << "S.V.P. reessayez : ";
-    } while (!(cin >> pAgeEnfant));
-  }
-}
+      voidValiderUneEntre(pNbrAController);
+    }
+  } 
 
 // renvoie le rabais pour les enfants
-float retourRabaisEnfant(int pAgeEnfant)
+double retourRabaisEnfant(int pAgeEnfant)
 {
-  if (pAgeEnfant <= 5){
-    return 0.04;
-  }else if(pAgeEnfant <= 8 )
+  //Constante pour les differents rabais pour les enfants
+const double TARIF_ENFANT_MOINS_6_ANS(0.04);
+const double TARIF_ENFANT_MOINS_9_ANS(0.03);
+const double TARIF_ENFANT_MOINS_13_ANS(0.02);
+  if (pAgeEnfant <= 5)
   {
-    return 0.03;
-  }else
+    return TARIF_ENFANT_MOINS_6_ANS;
+  }
+  else if (pAgeEnfant <= 8)
   {
-    return 0.02;
+    return TARIF_ENFANT_MOINS_9_ANS;
+  }
+  else
+  {
+    return TARIF_ENFANT_MOINS_13_ANS;
   }
 }
 
-float retourTarifSejour(char pTypeSejour, int pDureeSejour){
-   if (pTypeSejour == 'R')
-      {
-        if (pDureeSejour <= 3)
-        {
-          return  TARIF_REGULIER_3_JOUR * pDureeSejour;
-        }
-        else if (pDureeSejour <= 7)
-        {
-          return TARIF_REGULIER_9_JOUR * pDureeSejour;
-        }
-        else
-        {
-          return TARIF_REGULIER_15_JOUR * pDureeSejour;
-        }
-      }
-      else
-      {
-        if (pDureeSejour <= 3)
-        {
-          return TARIF_INCLUS_3_JOUR * pDureeSejour;
-        }
-        else if (pDureeSejour <= 7)
-        {
-          return TARIF_INCLUS_9_JOUR * pDureeSejour;
-        }
-        else
-        {
-          return TARIF_INCLUS_15_JOUR * pDureeSejour;
-        }
-      }
+double retourTarifSejour(char pTypeSejour, int pDureeSejour)
+{
+  //Constante pour les differents Tarifs réguliers
+  const int TARIF_REGULIER_3_JOUR(250);
+  const int TARIF_REGULIER_7_JOUR(240);
+  const int TARIF_REGULIER_14_JOUR(220);
+
+  //Constante pour les differents Tarifs tout inclus
+  const int TARIF_INCLUS_3_JOUR(350);
+  const int TARIF_INCLUS_7_JOUR(340);
+  const int TARIF_INCLUS_14_JOUR(320);
+
+  if (pTypeSejour == 'R')
+  {
+    if (pDureeSejour <= 3)
+    {
+      return TARIF_REGULIER_3_JOUR * pDureeSejour;
+    }
+    else if (pDureeSejour <= 7)
+    {
+      return TARIF_REGULIER_7_JOUR * pDureeSejour;
+    }
+    else
+    {
+      return TARIF_REGULIER_14_JOUR * pDureeSejour;
+    }
+  }
+  else
+  {
+    if (pDureeSejour <= 3)
+    {
+      return TARIF_INCLUS_3_JOUR * pDureeSejour;
+    }
+    else if (pDureeSejour <= 7)
+    {
+      return TARIF_INCLUS_7_JOUR * pDureeSejour;
+    }
+    else
+    {
+      return TARIF_INCLUS_14_JOUR * pDureeSejour;
+    }
+  }
 }

@@ -10,8 +10,28 @@
 
 using namespace std;
 
+void voidValiderUneEntre(int pEntre)
+{
+  do
+  {
+    cin.clear();
+    cin.ignore(100, '\n');
+    cout << "Votre entree est incorrecte."
+         << "\nS.V.P. reessayez : ";
+  } while (!(cin >> pEntre));
+}
+
+ void lireValiderEntierEntre(int pBorn1, int pBorne2, int pNbrAController)
+  {
+    while (pNbrAController < pBorn1 || pNbrAController > pBorne2)
+    {
+      voidValiderUneEntre(pNbrAController);
+    }
+  }
+
 int main()
 {
+
 
   /*char typeSejour;
 
@@ -32,15 +52,6 @@ int main()
 
   cout << "\nEntrer la durée du sejour (un nombre entier entre 1 et 14): ";
   cin >> dureSejour;
-
-  while (dureSejour < 0 || dureSejour > 12)
-  {
-    do
-    {
-      cin.clear();
-      cin.ignore(100, '\n');
-      cout << "Votre entree est incorrecte."
-           << "S.V.P. reessayez : ";
-    } while (!(cin >> dureSejour));
-  }
+  lireValiderEntierEntre(1,14,dureSejour);
 }
+
