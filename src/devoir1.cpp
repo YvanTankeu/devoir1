@@ -23,24 +23,25 @@ const int TARIF_INCLUS_15_JOUR(320);
 const float TARIF_ENFANT_MOINS_6_ANS(0.04);
 const float TARIF_ENFANT_MOINS_9_ANS(0.03);
 const float TARIF_ENFANT_MOINS_13_ANS(0.02);
+const float TAXE(0.15);
 
 using namespace std;
 
-// Déclaration des variables et initialisation
-// des variables
-int choix(5);
-int dureeSejour(0);
-int nbrEnfant(0);
-int ageEnfant(0);
-
-float tarif(0);
-
-string nomClient("");
-
-char typeSejour, typeSejourConvertir;
-
 int main()
 {
+
+  // Déclaration des variables et initialisation
+  // des variables
+  int choix(5), dureeSejour(0), nbrEnfant(0), sommeFacture(0),ageEnfant(0);
+
+  float tarif(0), tarifSejour(0), tarifApresRabais(0), totalFacture(0),
+      rabaisPouEnfant(0), totalPourcentRabaisEnfant(0), taxeTotal(0),
+      montantTotal(0);
+
+  string nomClient("");
+
+  char typeSejour, typeSejourConvertir;
+
   // Affichage du menu et traitement de données
   while (choix > 0 and choix < 4 || choix > 4)
   {
@@ -85,7 +86,11 @@ int main()
       }
 
       // Traitement du sejour s'il est régulier ou non
-      if (typeSejour == 'R')
+      // via la fonction retour sejour qui nous renvera la
+      // le tarif du sejour en fonction du type de sejour et le nombre
+      // de jour que va durer le séjour
+      tarifSejour = retourTarifSejour(typeSejour, dureeSejour);
+      /*if (typeSejour == 'R')
       {
         if (dureeSejour <= 3)
         {
@@ -99,7 +104,8 @@ int main()
         {
           tarif = TARIF_REGULIER_15_JOUR * dureeSejour;
         }
-      }else
+      }
+      else
       {
         if (dureeSejour <= 3)
         {
@@ -113,11 +119,39 @@ int main()
         {
           tarif = TARIF_INCLUS_15_JOUR * dureeSejour;
         }
+      }*/
+
+      //Traitement en fonction des enfants
+      // grace à la boucle on a le pourcentage total de rabais des enfants
+      for (int i = 0; i < nbrEnfant; i++)
+      {
+        // Trouver le pourcentage de rabais en pourcent
+        totalPourcentRabaisEnfant = totalPourcentRabaisEnfant + (retourRabaisEnfant(ageEnfant)) * 100;
+        /*if (ageEnfant <= 5)
+        {
+          totalPourcentRabaisEnfant = totalPourcentRabaisEnfant + retourRabaisEnfant(ageEnfant);
+        }
+        else if (ageEnfant <= 8)
+        {
+          totalPourcentRabaisEnfant = totalPourcentRabaisEnfant + retourRabaisEnfant(ageEnfant);
+        }
+        else{
+          totalPourcentRabaisEnfant = totalPourcentRabaisEnfant + retourRabaisEnfant(ageEnfant);
+        }*/
       }
+
+      // coût de rabais pour les enfants
+      rabaisPouEnfant = (tarifSejour * totalPourcentRabaisEnfant) / 100;
+      tarifApresRabais = tarifSejour - rabaisPouEnfant; // coût après rabais pour les enfants
+      taxeTotal = tarifApresRabais * TAXE;              // coût une fois la taxe appliqué
+      montantTotal = tarifApresRabais + taxeTotal;      // Montant total à payer
 
     case 2:
       cout << "\nEntrer le nom du client : ";
       cin >> nomClient;
+
+      sommeFacture = sommeFacture + 1;
+      totalFacture = totalFacture + 1;
     }
   }
 }

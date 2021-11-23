@@ -117,3 +117,36 @@ float retourRabaisEnfant(int pAgeEnfant)
     return 0.02;
   }
 }
+
+float retourTarifSejour(char pTypeSejour, int pDureeSejour){
+   if (pTypeSejour == 'R')
+      {
+        if (pDureeSejour <= 3)
+        {
+          return  TARIF_REGULIER_3_JOUR * pDureeSejour;
+        }
+        else if (pDureeSejour <= 7)
+        {
+          return TARIF_REGULIER_9_JOUR * pDureeSejour;
+        }
+        else
+        {
+          return TARIF_REGULIER_15_JOUR * pDureeSejour;
+        }
+      }
+      else
+      {
+        if (pDureeSejour <= 3)
+        {
+          return TARIF_INCLUS_3_JOUR * pDureeSejour;
+        }
+        else if (pDureeSejour <= 7)
+        {
+          return TARIF_INCLUS_9_JOUR * pDureeSejour;
+        }
+        else
+        {
+          return TARIF_INCLUS_15_JOUR * pDureeSejour;
+        }
+      }
+}
