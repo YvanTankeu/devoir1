@@ -29,29 +29,15 @@ void voidValiderUneEntre(int pEntre)
     }
   }
 
-int main()
+int main(void)
 {
-
-
-  /*char typeSejour;
-
-    cout << "\nEntrer le type de sejour (R - régulier ou T - tout inclus) : ";
-    cin >> typeSejour;
-    char majChar; // déclation de la variable pour stocker les majuscules venant du paramètre pChar
-    majChar = toupper(typeSejour);
-
-    // controle de  poids
-    while (majChar != 'R' && majChar != 'T')
-    {
-        cout << "Votre entree est incorrecte."
-             << "S.V.P. reessayez : "; // Poids du joueur en cours d'enregistrement
-        cin >> majChar;                // Donnée poids stockée dans la variable poids
-    }*/
-
-  int dureSejour;
-
-  cout << "\nEntrer la durée du sejour (un nombre entier entre 1 et 14): ";
-  cin >> dureSejour;
-  lireValiderEntierEntre(1,14,dureSejour);
+  int m;
+  if(m = 3 ){
+    //cin >> toupper(m);
+  }
+  printf("Appuyez sur une touche pour afficher le menu...\n" );
+  while(getchar() != '\n');
 }
+
+
 

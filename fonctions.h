@@ -21,9 +21,11 @@ void menu()
        << "\n\nEntrez votre choix (1,2,3 ou 4) : ";
 }
 
-// Déclation et définition de la fonction  voidValiderUneEntre qui controle les types 
-//de données et valides uniquement ceux qui sont correctes  
-void voidValiderUneEntre(int pEntre)
+// Déclation et définition de la fonction  voidValiderUneEntre qui controle les types
+//de données et valides uniquement ceux qui sont correctes
+// on passera pEntre par adress parce qu'on veut que la fonction puisse altérer sa valeur pendant l'execution
+// et il cette valeur sera utilisée dans le main
+void voidValiderUneEntre(int &pEntre)
 {
   do
   {
@@ -34,38 +36,51 @@ void voidValiderUneEntre(int pEntre)
   } while (!(cin >> pEntre));
 }
 
-// Déclation et définition de la fonction  LireValiderEntierEntre ) à fin de valider le caratère
-void lireValider2Char(char pChar)
+void menuPrincipal()
 {
-  /*char majChar;             // déclation de la variable pour stocker les majuscules venant du paramètre pChar
-  majChar = toupper(pChar); //conversion en majusucule*/
-
-  // controle de charatère
-  while (pChar != 'R' && pChar != 'T')
-  {
-    cout << "Votre entrée est incorrecte."
-         << "S.V.P. reessayez : ";
-    cin >> pChar;
-  } 
+  cout << ("\n\nAppuyez sur une touche pour retourner au menu principal_");
+  while (getchar() != '\n')
+    ;
 }
 
-// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de 
-//valider les données sur la durée du séjour
-void lireValiderEntierEntre(int pBorn1, int pBorne2, int pNbrAController)
+// Déclation et définition de la fonction  LireValiderEntierEntre ) à fin de valider le caratère
+void lireValider2Char(char &pChar)
+{
+  char majChar; // déclation de la variable pour stocker les majuscules venant du paramètre pChar
+
+  // controle de charatère
+  while (majChar != 'R' && majChar != 'T')
   {
-    while (pNbrAController < pBorn1 || pNbrAController > pBorne2)
+    do
     {
-      voidValiderUneEntre(pNbrAController);
-    }
-  } 
+      cin.clear();
+      cin.ignore(100, '\n');
+      cout << "Votre entrée est incorrecte."
+           << "\nS.V.P. reessayez : ";
+      cin >> pChar;
+      majChar = toupper(pChar);
+    } while (!(majChar));
+  }
+}
+
+// Déclation et définition de la fonction  LireValiderEntierEntre  à fin de
+//valider les données sur la durée du séjour
+void lireValiderEntierEntre(int pBorn1, int pBorne2, int &pNbrAController)
+{
+  while (pNbrAController < pBorn1 || pNbrAController > pBorne2)
+  {
+
+    voidValiderUneEntre(pNbrAController);
+  }
+}
 
 // renvoie le rabais pour les enfants
 double retourRabaisEnfant(int pAgeEnfant)
 {
   //Constante pour les differents rabais pour les enfants
-const double TARIF_ENFANT_MOINS_6_ANS(0.04);
-const double TARIF_ENFANT_MOINS_9_ANS(0.03);
-const double TARIF_ENFANT_MOINS_13_ANS(0.02);
+  const double TARIF_ENFANT_MOINS_6_ANS(0.04);
+  const double TARIF_ENFANT_MOINS_9_ANS(0.03);
+  const double TARIF_ENFANT_MOINS_13_ANS(0.02);
   if (pAgeEnfant <= 5)
   {
     return TARIF_ENFANT_MOINS_6_ANS;
@@ -122,4 +137,13 @@ double retourTarifSejour(char pTypeSejour, int pDureeSejour)
       return TARIF_INCLUS_14_JOUR * pDureeSejour;
     }
   }
+}
+
+// Fonction d'affiche du récapitulatif de la journée
+void afficheRecapitulatif(double pNombreTotalFacture, double pTotalFacture)
+{
+  cout << "\n\t\t\t\tCLUB MED"
+       << "\n\t\t\tRécaptitulatif de la journée"
+       << "\n\nNombre de factures produites: " << pNombreTotalFacture
+       << "\nTotal des montants à payer: " << pTotalFacture << " $\n\n\n";
 }
